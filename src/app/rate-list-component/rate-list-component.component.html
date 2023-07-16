@@ -2,7 +2,7 @@
 
 <h2>Rates</h2>
 
-<form (ngSubmit)="addRate(rate)">
+<form ngNativeValidate (ngSubmit)="addRate(rate)">
   <label>
     <input type="text" [(ngModel)]="rate.currency" name="currency" required placeholder="currency">
   </label>
@@ -13,11 +13,14 @@
   <br>
   <button type="submit">Submit</button>
 </form>
+<div *ngIf="rateSelected && rateSelected.value !== undefined">
+  <h1 style="display: inline;">Current Currency Value: {{ rateSelected.value }}</h1>
+</div>
 
-<table>
+
+<table *ngIf="rates.length > 0">
   <thead>
   <tr>
-    <th>ID</th>
     <th>Currency</th>
     <th>Name</th>
     <th>Date</th>
@@ -26,7 +29,6 @@
   </thead>
   <tbody>
   <tr *ngFor="let rate of rates">
-    <td>{{ rate.id }}</td>
     <td width="10px" style="text-align: center;">{{ rate.currency }}</td>
     <td width="150px" style="text-align: center;">{{ rate.name }}</td>
     <td width="250px" style="text-align: center;">{{ rate.date }}</td>

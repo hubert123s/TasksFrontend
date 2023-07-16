@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RateService } from 'src/app/service/rateService.service';
-import { Rate } from 'src/app/model/rate.model';
+import { RateOutputDto } from 'src/app/model/rate-output-dto.model';
+import { RateSelected } from 'src/app/model/rate-selected.model';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -9,9 +10,9 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./rate-list-component.component.css']
 })
 export class RateListComponent implements OnInit {
-  rates: Rate[]=[];
-  rate: Rate= new Rate();
-
+  rates: RateOutputDto[]=[];
+  rate: RateOutputDto= new RateOutputDto();
+ rateSelected: RateSelected= new RateSelected();
   constructor(private rateService: RateService) { }
 
   ngOnInit() {
@@ -28,12 +29,13 @@ export class RateListComponent implements OnInit {
       }
     );
   }
-  addRate(rate: Rate) {
+  addRate(rate: RateOutputDto) {
     this.rateService.addRate(this.rate)
       .subscribe(
-        (response: Rate) => {
+        (response: RateOutputDto) => {
           console.log('Rate saved successfully:', response);
           this.getRequest();
+          this.rateSelected = response;
         },
         (error) => {
           console.error('Rate save error:', error);

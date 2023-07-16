@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Rate } from 'src/app/model/rate.model';
+import { RateOutputDto } from 'src/app/model/rate-output-dto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +11,10 @@ export class RateService {
 
   constructor(private http: HttpClient) { }
 
-  getRequest(): Observable<Rate[]> {
-    return this.http.get<Rate[]>(`${this.apiUrl}/request`);
+  getRequest(): Observable<RateOutputDto[]> {
+    return this.http.get<RateOutputDto[]>(`${this.apiUrl}/request`);
   }
-  addRate(rate: Rate): Observable<Rate> {
-    return this.http.post<Rate>(`${this.apiUrl}/get-current-currency-value-command`, rate);
+  addRate(rate: RateOutputDto): Observable<RateOutputDto> {
+    return this.http.post<RateOutputDto>(`${this.apiUrl}/get-current-currency-value-command`, rate);
   }
 }
